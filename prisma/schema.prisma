@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
+}
+
+enum worksOnType{
+  WEB @map("Web Development")
+  MOBILE @map("Android / IOS Development")
+  ML @map("Machine Learning")
+  SECURITY @map("Cyber Security")
+ CLOUD @map("Cloud")
+}
+
+enum tag{
+  ML
+  FRONTEND
+  BACKEND
+  FULLSTACK
+  CLOUD
+  DEVOPS
+  MOBILE
+  DATABASE
+  NLP
+  VISION
+  SECURITY
+
+}
+enum job_type{
+  HYBRID
+  REMOTE 
+  OnSite
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id Int  @id @default(autoincrement())
+  name String
+  username String  @unique
+  password String
+  email String  @unique
+  experience String 
+  looking_for tag[]
+  newjob NewJob[]
+  bookmark Bookmark[] 
+
+
+}
+model Job{
+  jid Int @id @default(autoincrement())
+  tags tag[]
+  link String
+  email String 
+  experience String
+  salary String
+  role String
+  responsibility String
+  start_date DateTime
+  last_date DateTime
+  types job_type 
+  requirements String
+  location String
+  cid Int
+  website String
+  company Company @relation(fields: [cid],references: [cid],onDelete: Cascade)
+  newjob NewJob[]
+  bookmark Bookmark[]
+
+}
+model Company{
+  cid Int @id @default(autoincrement())
+  name String @unique
+  location String
+  description String
+  workson worksOnType[]
+  jobs Job[]
+}
+model NewJob{
+  njid Int @id @default(autoincrement())
+  jid Int
+  id Int
+  user User @relation(fields: [id],references: [id],onDelete: Cascade)
+  job Job @relation(fields: [jid],references: [jid],onDelete: Cascade)
+  @@unique([jid,id])
+}
+
+model Bookmark{
+  mark Int @id @default(autoincrement())
+  jid Int
+  id Int
+  user User @relation(fields: [id],references: [id],onDelete: Cascade)
+  job Job @relation(fields: [jid],references: [jid],onDelete: Cascade)
+  @@unique([jid,id])
+}
