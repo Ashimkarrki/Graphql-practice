@@ -69,9 +69,14 @@ export const jobDeleteHandeler = async ({ jid }) => {
 
 export const jobGetNewHandeler = async ({ id }) => {
   try {
-    const newJobs = await prisma.newJob.findMany({ where: { id } });
-    const jids = newJobs.map((s) => s.jid);
-    return await prisma.job.findMany({ where: { jid: { in: jids } } });
+    return await prisma.newJob
+      .findMany({
+        where: { id },
+        include: { job: true },
+      })
+      .then((res) => {
+        return res.map((s) => s.job);
+      });
   } catch (err) {
     throw new Error("Something went wrong");
   }
@@ -81,9 +86,11 @@ export const jobDeleteNewHandeler = async ({ id, jid }) => {
     await prisma.newJob.deleteMany({
       where: { id: id, jid: jid },
     });
-    const newJobs = await prisma.newJob.findMany({ where: { id } });
-    const jids = newJobs.map((s) => s.jid);
-    return await prisma.job.findMany({ where: { jid: { in: jids } } });
+    return await prisma.newJob
+      .findMany({ where: { id }, include: { job: true } })
+      .then((res) => {
+        return res.map((s) => s.job);
+      });
   } catch (err) {
     throw new Error("Something went wrong");
   }
@@ -120,14 +127,18 @@ export const jobRemoveBookmarkHandeler = async ({ id, jid }) => {
         jid,
       },
     });
-    const bookmark = await prisma.bookmark.findMany({
-      where: {
-        id: id,
-      },
-    });
-    const jids = bookmark.map((s) => s.jid);
-
-    return prisma.job.findMany({ where: { jid: { in: jids } } });
+    return await prisma.bookmark
+      .findMany({
+        where: {
+          id: id,
+        },
+        include: {
+          job: true,
+        },
+      })
+      .then((res) => {
+        return res.map((s) => s.job);
+      });
   } catch (err) {
     throw new Error("Bookmark not available");
   }
@@ -135,19 +146,18 @@ export const jobRemoveBookmarkHandeler = async ({ id, jid }) => {
 
 export const jobGetAllBookmarkHandeler = async ({ id }) => {
   try {
-    const bookmark = await prisma.bookmark.findMany({
-      where: {
-        id: id,
-      },
-    });
-    const jids = bookmark.map((s) => s.jid);
-    return await prisma.job.findMany({
-      where: {
-        jid: {
-          in: jids,
+    return await prisma.bookmark
+      .findMany({
+        where: {
+          id: id,
         },
-      },
-    });
+        include: {
+          job: true,
+        },
+      })
+      .then((res) => {
+        return res.map((s) => s.job);
+      });
   } catch (err) {
     console.log(err);
   }
