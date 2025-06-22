@@ -1,0 +1,117 @@
+/*
+  Warnings:
+
+  - The `workson` column on the `Company` table would be dropped and recreated. This will lead to data loss if there is data in the column.
+  - You are about to drop the column `role` on the `Job` table. All the data in the column will be lost.
+  - Added the required column `website` to the `Company` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `level` to the `Job` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `title` to the `Job` table without a default value. This is not possible if the table is not empty.
+
+*/
+-- AlterEnum
+-- This migration adds more than one value to an enum.
+-- With PostgreSQL versions 11 and earlier, this is not possible
+-- in a single migration. This can be worked around by creating
+-- multiple migrations, each migration adding only one value to
+-- the enum.
+
+
+ALTER TYPE "tag" ADD VALUE 'ML_OPS';
+ALTER TYPE "tag" ADD VALUE 'DEEP_LEARNING';
+ALTER TYPE "tag" ADD VALUE 'REINFORCEMENT_LEARNING';
+ALTER TYPE "tag" ADD VALUE 'DATA_SCIENCE';
+ALTER TYPE "tag" ADD VALUE 'DATA_ENGINEERING';
+ALTER TYPE "tag" ADD VALUE 'RECOMMENDATION_SYSTEMS';
+ALTER TYPE "tag" ADD VALUE 'TIME_SERIES';
+ALTER TYPE "tag" ADD VALUE 'ANOMALY_DETECTION';
+ALTER TYPE "tag" ADD VALUE 'GENERATIVE_AI';
+ALTER TYPE "tag" ADD VALUE 'REACT';
+ALTER TYPE "tag" ADD VALUE 'ANGULAR';
+ALTER TYPE "tag" ADD VALUE 'VUE';
+ALTER TYPE "tag" ADD VALUE 'NEXT_JS';
+ALTER TYPE "tag" ADD VALUE 'SVELTE';
+ALTER TYPE "tag" ADD VALUE 'TAILWIND_CSS';
+ALTER TYPE "tag" ADD VALUE 'TYPE_SCRIPT';
+ALTER TYPE "tag" ADD VALUE 'UI_UX';
+ALTER TYPE "tag" ADD VALUE 'WEB3';
+ALTER TYPE "tag" ADD VALUE 'NODE_JS';
+ALTER TYPE "tag" ADD VALUE 'EXPRESS';
+ALTER TYPE "tag" ADD VALUE 'DJANGO';
+ALTER TYPE "tag" ADD VALUE 'FLASK';
+ALTER TYPE "tag" ADD VALUE 'SPRING_BOOT';
+ALTER TYPE "tag" ADD VALUE 'RUBY_ON_RAILS';
+ALTER TYPE "tag" ADD VALUE 'REST_API';
+ALTER TYPE "tag" ADD VALUE 'GRAPHQL';
+ALTER TYPE "tag" ADD VALUE 'GRPC';
+ALTER TYPE "tag" ADD VALUE 'MICRO_SERVICES';
+ALTER TYPE "tag" ADD VALUE 'JAMSTACK';
+ALTER TYPE "tag" ADD VALUE 'SERVERLESS';
+ALTER TYPE "tag" ADD VALUE 'AWS';
+ALTER TYPE "tag" ADD VALUE 'GCP';
+ALTER TYPE "tag" ADD VALUE 'AZURE';
+ALTER TYPE "tag" ADD VALUE 'TERRAFORM';
+ALTER TYPE "tag" ADD VALUE 'KUBERNETES';
+ALTER TYPE "tag" ADD VALUE 'DOCKER';
+ALTER TYPE "tag" ADD VALUE 'CI_CD';
+ALTER TYPE "tag" ADD VALUE 'CLOUD_SECURITY';
+ALTER TYPE "tag" ADD VALUE 'LOAD_BALANCING';
+ALTER TYPE "tag" ADD VALUE 'MONITORING';
+ALTER TYPE "tag" ADD VALUE 'FLUTTER';
+ALTER TYPE "tag" ADD VALUE 'REACT_NATIVE';
+ALTER TYPE "tag" ADD VALUE 'KOTLIN';
+ALTER TYPE "tag" ADD VALUE 'SWIFT';
+ALTER TYPE "tag" ADD VALUE 'IOS';
+ALTER TYPE "tag" ADD VALUE 'ANDROID';
+ALTER TYPE "tag" ADD VALUE 'CROSS_PLATFORM';
+ALTER TYPE "tag" ADD VALUE 'SQL';
+ALTER TYPE "tag" ADD VALUE 'NO_SQL';
+ALTER TYPE "tag" ADD VALUE 'MONGODB';
+ALTER TYPE "tag" ADD VALUE 'POSTGRESQL';
+ALTER TYPE "tag" ADD VALUE 'MYSQL';
+ALTER TYPE "tag" ADD VALUE 'BIGQUERY';
+ALTER TYPE "tag" ADD VALUE 'DATA_LAKES';
+ALTER TYPE "tag" ADD VALUE 'ETL';
+ALTER TYPE "tag" ADD VALUE 'PENETRATION_TESTING';
+ALTER TYPE "tag" ADD VALUE 'VULNERABILITY_SCANNING';
+ALTER TYPE "tag" ADD VALUE 'IAM';
+ALTER TYPE "tag" ADD VALUE 'SOC';
+ALTER TYPE "tag" ADD VALUE 'ZERO_TRUST';
+ALTER TYPE "tag" ADD VALUE 'SIEM';
+ALTER TYPE "tag" ADD VALUE 'PKI';
+ALTER TYPE "tag" ADD VALUE 'LLMS';
+ALTER TYPE "tag" ADD VALUE 'TEXT_CLASSIFICATION';
+ALTER TYPE "tag" ADD VALUE 'CHATBOTS';
+ALTER TYPE "tag" ADD VALUE 'SENTIMENT_ANALYSIS';
+ALTER TYPE "tag" ADD VALUE 'TRANSLATION';
+ALTER TYPE "tag" ADD VALUE 'SPEECH_RECOGNITION';
+ALTER TYPE "tag" ADD VALUE 'QUESTION_ANSWERING';
+ALTER TYPE "tag" ADD VALUE 'OBJECT_DETECTION';
+ALTER TYPE "tag" ADD VALUE 'FACE_RECOGNITION';
+ALTER TYPE "tag" ADD VALUE 'OCR';
+ALTER TYPE "tag" ADD VALUE 'IMAGE_SEGMENTATION';
+ALTER TYPE "tag" ADD VALUE 'POSE_ESTIMATION';
+ALTER TYPE "tag" ADD VALUE 'VIDEO_ANALYTICS';
+ALTER TYPE "tag" ADD VALUE 'AGILE';
+ALTER TYPE "tag" ADD VALUE 'SCRUM';
+ALTER TYPE "tag" ADD VALUE 'PRODUCT_MANAGEMENT';
+ALTER TYPE "tag" ADD VALUE 'QA';
+ALTER TYPE "tag" ADD VALUE 'MANUAL_TESTING';
+ALTER TYPE "tag" ADD VALUE 'AUTOMATION_TESTING';
+ALTER TYPE "tag" ADD VALUE 'GAME_DEVELOPMENT';
+ALTER TYPE "tag" ADD VALUE 'BLOCKCHAIN';
+ALTER TYPE "tag" ADD VALUE 'IOT';
+ALTER TYPE "tag" ADD VALUE 'AR';
+ALTER TYPE "tag" ADD VALUE 'VR';
+ALTER TYPE "tag" ADD VALUE 'TECH_LEAD';
+ALTER TYPE "tag" ADD VALUE 'ENGINEERING_MANAGER';
+ALTER TYPE "tag" ADD VALUE 'SRE';
+
+-- AlterTable
+ALTER TABLE "Company" ADD COLUMN     "website" TEXT NOT NULL,
+DROP COLUMN "workson",
+ADD COLUMN     "workson" "tag"[];
+
+-- AlterTable
+ALTER TABLE "Job" DROP COLUMN "role",
+ADD COLUMN     "level" TEXT NOT NULL,
+ADD COLUMN     "title" TEXT NOT NULL;

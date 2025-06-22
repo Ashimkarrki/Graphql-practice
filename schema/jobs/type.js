@@ -7,7 +7,8 @@ type Job
     email : String
     experience : String!
     salary : String
-    role : String!
+    level : String!
+    title:String!
     responsibility : String!
     start_date : String
     last_date : String
@@ -20,7 +21,7 @@ type Job
 type Query
   {
     getAllJob:[Job]
-    getJob(id:ID!):Job
+    getJob(jid:ID!):Job
     getJobOfCompany(companyId:ID!):[Job]
     getNewJob:[Job]
     getAllBookMark:[Job]
@@ -33,7 +34,8 @@ type Query
       email : String
       experience : String
       salary : String
-      role : String
+     level : String
+    title:String
       responsibility : String
       start_date : String
       last_date : String
@@ -60,8 +62,9 @@ input addJobType
       link : String
       email : String
       experience : String!
-      salary : String
-      role : String!
+     level : String!
+    title:String!
+    salary:String!
       responsibility : String!
       start_date : String
       last_date : String

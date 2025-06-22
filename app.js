@@ -26,7 +26,7 @@ async function startServer() {
   const app = express();
   app.use(
     "/graphql",
-    cors({ origin: "*" }),
+    cors({ origin: ["http://localhost:5173"], credentials: true }),
     cookieParser(),
     bodyParser.json(),
     expressMiddleware(server, {

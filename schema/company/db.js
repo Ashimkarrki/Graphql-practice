@@ -3,6 +3,8 @@ export const companyAddHandeler = async (data) => {
   try {
     return await prisma.company.create({ data });
   } catch (err) {
+    console.log(err);
+
     throw new Error("Name already present");
   }
 };
@@ -38,5 +40,12 @@ export const companyDeleteHandeler = async ({ cid }) => {
     });
   } catch (err) {
     throw new Error("Company  not present");
+  }
+};
+export const companyAllGetHandeler = async () => {
+  try {
+    return await prisma.company.findMany();
+  } catch (err) {
+    throw new Error("No Company present");
   }
 };

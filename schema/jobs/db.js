@@ -6,6 +6,17 @@ export const jobGetAllHandeler = async () => {
     throw new Error("Unexpected Error Occured");
   }
 };
+export const jobGetHandeler = async (jid) => {
+  try {
+    return await prisma.job.findUnique({
+      where: {
+        jid: jid,
+      },
+    });
+  } catch (err) {
+    throw new Error("Unexpected Error Occured");
+  }
+};
 export const jobAddHandeler = async (data) => {
   data.cid = Number(data.cid);
   try {
@@ -23,7 +34,7 @@ export const jobAddHandeler = async (data) => {
 
     return job;
   } catch (err) {
-    // console.log(err);
+    console.log(err);
 
     throw new Error("Unexpected Error Occured");
   }

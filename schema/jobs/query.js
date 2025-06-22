@@ -3,11 +3,15 @@ import {
   jobGetAllBookmarkHandeler,
   jobGetAllHandeler,
   jobGetAllOfCompanyHandeler,
+  jobGetHandeler,
   jobGetNewHandeler,
 } from "./db.js";
 export const jobQuery = {
   async getAllJob() {
     return await jobGetAllHandeler();
+  },
+  async getJob(_, args) {
+    return await jobGetHandeler(Number(args.jid));
   },
   async getJobOfCompany(_, args) {
     return await jobGetAllOfCompanyHandeler(Number(args.companyId));

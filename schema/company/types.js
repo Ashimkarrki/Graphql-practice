@@ -4,10 +4,14 @@ export const companyType = `
         name:String!,
         location:String!,
         description:String!,
+        website: String!
         workson:[String!],
+        jobs: [Job!]
     }
      
         input companyAddType{
+        website: String!
+
         name:String!,
         location:String!,
         description:String!,
@@ -21,6 +25,7 @@ export const companyType = `
         }
           type Query{
          getCompany(companyId:ID!):Company
+         getAllCompany:[Company]
          }
          type Mutation{
          addCompany(companyData:companyAddType):Company
