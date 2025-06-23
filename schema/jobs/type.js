@@ -5,6 +5,7 @@ type Job
     tags :[String!]
     link : String
     email : String
+    description :String
     experience : String!
     salary : String
     level : String!
@@ -16,6 +17,7 @@ type Job
     requirements : String!
     location : String
     website:String!
+    company:Company!
     cid :ID!
 }
 type Query
@@ -25,6 +27,7 @@ type Query
     getJobOfCompany(companyId:ID!):[Job]
     getNewJob:[Job]
     getAllBookMark:[Job]
+    isBookmarked(jid:ID!):Boolean
     
   }
     input editJobType{
@@ -34,8 +37,8 @@ type Query
       email : String
       experience : String
       salary : String
-     level : String
-    title:String
+      level : String
+      title:String
       responsibility : String
       start_date : String
       last_date : String
@@ -43,6 +46,7 @@ type Query
       requirements : String
       location : String
       website:String
+      description: String
     }
 type Mutation
     {
@@ -53,11 +57,17 @@ type Mutation
       removeAllNewJob:String
       addBookmark(jid:ID!):Job
       removeBookmark(jid:ID!):[Job]
+    removeAllBookmark:allBookmarkRemoveType!
 
+
+    }
+    type allBookmarkRemoveType{
+    count:Int!
     }
 input addJobType
     {
       cid :ID!
+      description: String
       tags :[String!]
       link : String
       email : String

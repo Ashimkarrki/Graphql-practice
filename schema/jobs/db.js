@@ -126,6 +126,8 @@ export const jobAddBookmarkHandeler = async ({ id, jid }) => {
     });
     return prisma.job.findUnique({ where: { jid } });
   } catch (err) {
+    console.log(err);
+
     throw new Error("Bookmark not available");
   }
 };
@@ -151,6 +153,8 @@ export const jobRemoveBookmarkHandeler = async ({ id, jid }) => {
         return res.map((s) => s.job);
       });
   } catch (err) {
+    console.log(err);
+
     throw new Error("Bookmark not available");
   }
 };
@@ -171,5 +175,29 @@ export const jobGetAllBookmarkHandeler = async ({ id }) => {
       });
   } catch (err) {
     console.log(err);
+  }
+};
+export const jobIsBookmarkedHandeler = async ({ jid, id }) => {
+  try {
+    const job = await prisma.bookmark.findMany({
+      where: {
+        jid: jid,
+        id: id,
+      },
+    });
+    if (job.length !== 0) {
+      return true;
+    } else return false;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Undefined Error");
+  }
+};
+export const jobRemoveAllBookmarkHandeler = async ({ id }) => {
+  try {
+    return await prisma.bookmark.deleteMany({ where: { id: id } });
+  } catch (err) {
+    console.log(err);
+    throw new Error("An error occured");
   }
 };

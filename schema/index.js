@@ -5,7 +5,7 @@ import {
   companyQuery,
   companyResolver,
 } from "./company/index.js";
-import { jobMutation, jobQuery, jobType } from "./jobs/index.js";
+import { jobMutation, jobQuery, jobType, jobResolver } from "./jobs/index.js";
 export const typeDefs = `#graphql
 ${userType}
 ${companyType}
@@ -24,4 +24,5 @@ export const resolvers = {
     ...jobMutation,
   },
   ...companyResolver,
+  ...jobResolver,
 };

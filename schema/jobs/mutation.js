@@ -7,6 +7,7 @@ import {
   jobDeleteAllNewHandeler,
   jobAddBookmarkHandeler,
   jobRemoveBookmarkHandeler,
+  jobRemoveAllBookmarkHandeler,
 } from "./db.js";
 
 export const jobMutation = {
@@ -46,5 +47,9 @@ export const jobMutation = {
       id: req.user.id,
       jid: Number(args.jid),
     });
+  },
+  async removeAllBookmark(_, args, { req }) {
+    routeProtection(req);
+    return await jobRemoveAllBookmarkHandeler({ id: Number(req.user.id) });
   },
 };

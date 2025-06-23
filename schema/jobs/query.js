@@ -5,6 +5,7 @@ import {
   jobGetAllOfCompanyHandeler,
   jobGetHandeler,
   jobGetNewHandeler,
+  jobIsBookmarkedHandeler,
 } from "./db.js";
 export const jobQuery = {
   async getAllJob() {
@@ -27,5 +28,12 @@ export const jobQuery = {
   async getAllBookMark(x, y, { req }) {
     routeProtection(req);
     return await jobGetAllBookmarkHandeler({ id: req.user.id });
+  },
+  async isBookmarked(_, args, { req }) {
+    routeProtection(req);
+    return await jobIsBookmarkedHandeler({
+      id: req.user.id,
+      jid: Number(args.jid),
+    });
   },
 };

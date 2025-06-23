@@ -147,6 +147,7 @@ model Job{
   jid Int @id @default(autoincrement())
   tags tag[]
   link String
+  description String
   email String 
   experience String
   salary String
